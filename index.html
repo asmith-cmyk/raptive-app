@@ -183,14 +183,14 @@
       <div class="field-wrap">
         <label>What is the owner's name?*</label>
         <input type="text" id="ownerNameComprep" oninput="checkOwnerField(this.value,'hint-owner-comprep')">
-        <div class="soft-hint" id="hint-owner-comprep"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not your site or company name.</div>
+        <div class="soft-hint" id="hint-owner-comprep"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not the site or company name.</div>
       </div>
       <div class="field-wrap"><label>Please share the owner's email address*</label><input type="text"></div>
       <div class="field-wrap">
         <label>Please share your title in the company*</label>
         <input type="text" id="titleComprep" oninput="checkTitleField(this.value,'hint-title-comprep')">
         <div class="soft-hint" id="hint-title-comprep">
-          <strong style="color:#4a3e00;">Tip:</strong> This should be your role or job title — not your site or company name.
+          <strong style="color:#4a3e00;">Tip:</strong> This should be your role or job title — not the site or company name.
           <div class="hint-chips">
             <span class="hint-chip" onclick="fillField('titleComprep','CEO','hint-title-comprep')">CEO</span>
             <span class="hint-chip" onclick="fillField('titleComprep','Editor','hint-title-comprep')">Editor</span>
@@ -209,7 +209,7 @@
         <div class="owner-row">
           <div style="display:flex;flex-direction:column;flex:1;">
             <input type="text" placeholder="Owner name*" oninput="checkCoownerName(this)">
-            <div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not your site or company name.</div>
+            <div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not the site or company name.</div>
           </div>
           <input type="text" placeholder="Owner email*">
           <span></span>
@@ -225,7 +225,7 @@
       <div class="field-wrap">
         <label>What is the owner's name?*</label>
         <input type="text" id="ownerNameThird" oninput="checkOwnerField(this.value,'hint-owner-third')">
-        <div class="soft-hint" id="hint-owner-third"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not your site or company name.</div>
+        <div class="soft-hint" id="hint-owner-third"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not the site or company name.</div>
       </div>
       <div class="field-wrap"><label>Please share the owner's email address*</label><input type="text"></div>
     </div>
@@ -236,14 +236,14 @@
       <div class="field-wrap">
         <label>What is the owner's name?*</label>
         <input type="text" id="ownerNameOther" oninput="checkOwnerField(this.value,'hint-owner-other')">
-        <div class="soft-hint" id="hint-owner-other"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not your site or company name.</div>
+        <div class="soft-hint" id="hint-owner-other"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not the site or company name.</div>
       </div>
       <div class="field-wrap"><label>Please share the owner's email address*</label><input type="text"></div>
       <div class="field-wrap" style="position:relative;">
         <label>Please share details of your involvement in the site</label>
         <textarea rows="2" id="otherDetails" oninput="onOtherDetailsChange(this.value)"></textarea>
         <span class="char-count" id="otherCount">0/500</span>
-        <div class="soft-hint" id="hint-other-details"><strong style="color:#4a3e00;">Tip:</strong> Describe your role or how you're involved — not your site or company name.</div>
+        <div class="soft-hint" id="hint-other-details"><strong style="color:#4a3e00;">Tip:</strong> Describe your role or how you're involved — not the site or company name.</div>
       </div>
     </div>
 
@@ -361,7 +361,7 @@ function selectInvolvement(el) {
 function addOwnerRow() {
   var row = document.createElement('div');
   row.className = 'owner-row';
-  row.innerHTML = '<div style="display:flex;flex-direction:column;flex:1;"><input type="text" placeholder="Owner name*" oninput="checkCoownerName(this)"><div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner\'s full name — not your site or company name.</div></div><input type="text" placeholder="Owner email*"><span style="font-size:18px;color:#bbb;cursor:pointer;padding-bottom:8px;" onclick="this.parentNode.remove()">×</span>';
+  row.innerHTML = '<div style="display:flex;flex-direction:column;flex:1;"><input type="text" placeholder="Owner name*" oninput="checkCoownerName(this)"><div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner\'s full name — not the site or company name.</div></div><input type="text" placeholder="Owner email*"><span style="font-size:18px;color:#bbb;cursor:pointer;padding-bottom:8px;" onclick="this.parentNode.remove()">×</span>';
   document.getElementById('coowner-rows').appendChild(row);
 }
 document.addEventListener('click', function(e) {
