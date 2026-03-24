@@ -1,4 +1,3 @@
-
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 .page { background: #f8f8fc; min-height: 100vh; font-family: var(--font-sans); }
@@ -70,7 +69,7 @@
 .inv-tag { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 20px; margin-top: 4px; background: #eeedfe; color: #3c3489; }
 
 .follow-block { margin-bottom: 8px; }
-.owner-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end; margin-bottom: 12px; }
+.owner-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: start; margin-bottom: 12px; }
 .owner-row input { width: 100%; border: none; border-bottom: 1px solid #bbb; padding: 8px 0; font-size: 14px; background: transparent; color: #111; outline: none; font-family: var(--font-sans); }
 .owner-row input:focus { border-bottom-color: #5c5ce0; }
 .add-btn { font-size: 12px; color: #5c5ce0; cursor: pointer; white-space: nowrap; padding-bottom: 8px; font-weight: 500; letter-spacing: 0.5px; }
@@ -126,7 +125,7 @@
     <hr class="section-divider">
 
     <div class="ownership-box">
-      <div class="q">Are you the owner of this site? </div>
+      <div class="q">Are you the owner of this site?</div>
       <div class="ownership-options">
         <label class="own-option" id="opt-yes" onclick="selectOwner('yes')">
           <input type="radio" name="isowner" value="yes">
@@ -208,7 +207,10 @@
       <div style="font-size:14px;color:#555;margin-bottom:12px;">Please include the names and email addresses of all owners*</div>
       <div id="coowner-rows">
         <div class="owner-row">
-          <input type="text" placeholder="Owner name*">
+          <div style="display:flex;flex-direction:column;flex:1;">
+            <input type="text" placeholder="Owner name*" oninput="checkCoownerName(this)">
+            <div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner's full name — not your site or company name.</div>
+          </div>
           <input type="text" placeholder="Owner email*">
           <span></span>
         </div>
@@ -239,8 +241,9 @@
       <div class="field-wrap"><label>Please share the owner's email address*</label><input type="text"></div>
       <div class="field-wrap" style="position:relative;">
         <label>Please share details of your involvement in the site</label>
-        <textarea rows="2" id="otherDetails" oninput="document.getElementById('otherCount').textContent=this.value.length+'/500'"></textarea>
+        <textarea rows="2" id="otherDetails" oninput="onOtherDetailsChange(this.value)"></textarea>
         <span class="char-count" id="otherCount">0/500</span>
+        <div class="soft-hint" id="hint-other-details"><strong style="color:#4a3e00;">Tip:</strong> Describe your role or how you're involved — not your site or company name.</div>
       </div>
     </div>
 
@@ -270,7 +273,6 @@ var siteName = '';
 function onSiteNameChange(val) {
   document.getElementById('charCount').textContent = val.length + '/100';
   siteName = val.trim().toLowerCase();
-  // Re-evaluate all visible owner/title hint fields
   var ownerFields = [
     ['ownerNameComprep','hint-owner-comprep'],
     ['ownerNameThird','hint-owner-third'],
@@ -282,9 +284,11 @@ function onSiteNameChange(val) {
   });
   var titleField = document.getElementById('titleComprep');
   if (titleField) checkTitleField(titleField.value, 'hint-title-comprep');
+  document.querySelectorAll('#coowner-rows input[placeholder="Owner name*"]').forEach(function(inp) { checkCoownerName(inp); });
+  var otherDetails = document.getElementById('otherDetails');
+  if (otherDetails) onOtherDetailsChange(otherDetails.value);
 }
 function getCompanyName() {
-  // collect all visible company name inputs
   var names = [];
   ['block-comprep','block-coowner','block-thirdparty','block-other','llc-company-name'].forEach(function(id) {
     var block = document.getElementById(id);
@@ -309,6 +313,14 @@ function looksLikeSiteOrCompany(val) {
 function checkOwnerField(val, hintId) { document.getElementById(hintId).classList.toggle('visible', looksLikeSiteOrCompany(val)); }
 function checkTitleField(val, hintId) { document.getElementById(hintId).classList.toggle('visible', looksLikeSiteOrCompany(val)); }
 function fillField(fieldId, val, hintId) { document.getElementById(fieldId).value = val; document.getElementById(hintId).classList.remove('visible'); }
+function checkCoownerName(input) {
+  var hint = input.parentNode.querySelector('.coowner-name-hint');
+  if (hint) hint.classList.toggle('visible', looksLikeSiteOrCompany(input.value));
+}
+function onOtherDetailsChange(val) {
+  document.getElementById('otherCount').textContent = val.length + '/500';
+  document.getElementById('hint-other-details').classList.toggle('visible', looksLikeSiteOrCompany(val));
+}
 function selectOwner(val) {
   document.querySelectorAll('.own-option').forEach(function(o){ o.classList.remove('selected'); });
   document.getElementById('opt-'+val).classList.add('selected');
@@ -349,7 +361,7 @@ function selectInvolvement(el) {
 function addOwnerRow() {
   var row = document.createElement('div');
   row.className = 'owner-row';
-  row.innerHTML = '<input type="text" placeholder="Owner name*"><input type="text" placeholder="Owner email*"><span style="font-size:18px;color:#bbb;cursor:pointer;padding-bottom:8px;" onclick="this.parentNode.remove()">×</span>';
+  row.innerHTML = '<div style="display:flex;flex-direction:column;flex:1;"><input type="text" placeholder="Owner name*" oninput="checkCoownerName(this)"><div class="soft-hint coowner-name-hint"><strong style="color:#4a3e00;">Tip:</strong> This should be the owner\'s full name — not your site or company name.</div></div><input type="text" placeholder="Owner email*"><span style="font-size:18px;color:#bbb;cursor:pointer;padding-bottom:8px;" onclick="this.parentNode.remove()">×</span>';
   document.getElementById('coowner-rows').appendChild(row);
 }
 document.addEventListener('click', function(e) {
